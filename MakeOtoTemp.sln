@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32014.148
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "MakeOtoTemp", "MakeOtoTemp\MakeOtoTemp.pyproj", "{0C6881D4-341C-45BB-9B83-827B82F75024}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0C6881D4-341C-45BB-9B83-827B82F75024}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C6881D4-341C-45BB-9B83-827B82F75024}.Release|Any CPU.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D26494E9-F0B3-4895-A33E-A4E0F85BE8CB}
+	EndGlobalSection
+EndGlobal
