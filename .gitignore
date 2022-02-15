@@ -361,3 +361,5 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/MakeOtoTemp/env/Lib/site-packages
+/MakeOtoTemp/env/Scripts
