@@ -12,7 +12,7 @@ class Test_test_default_preset(unittest.TestCase):
         preset = Preset.Preset()
         self.assertTrue(os.path.isfile("mkototemp.ini"))
 
-    def test__param(self):
+    def test_param(self):
         preset = Preset.Preset()
         self.assertEqual(100,preset.tempo)
         self.assertEqual(800,preset.offset)
@@ -23,7 +23,7 @@ class Test_test_default_preset(unittest.TestCase):
         self.assertFalse(preset.novcv)
         self.assertFalse(preset.only_consonant)
 
-    def test__vowels(self):
+    def test_vowels(self):
         preset = Preset.Preset()
         self.assertEqual(preset.vowel["あ"],"a")
         self.assertEqual(preset.vowel["い"],"i")
@@ -50,12 +50,35 @@ class Test_test_default_preset(unittest.TestCase):
         self.assertEqual(preset.consonant["な"],"n")
         self.assertEqual(preset.consonant["は"],"h")
         self.assertEqual(len(preset.consonant),196)
-        self.assertEqual(len(preset.consonant.keys()),34)
 
     def test_consonant_time(self):
         preset = Preset.Preset()
         self.assertEqual(preset.consonant_time[""],0)
         self.assertEqual(preset.consonant_time["k"],100)
+        self.assertEqual(len(preset.consonant_time.keys()),34)
         
-
-
+        
+class Test_test_read_preset(unittest.TestCase):
+    def test_other_param(self):
+        preset = Preset.Preset(os.path.join("tests","data","preset","other_param.ini"))
+        self.assertEqual(120,preset.tempo)
+        self.assertEqual(900,preset.offset)
+        self.assertEqual(0,preset.max)
+        self.assertFalse(preset.under)
+        self.assertFalse(preset.begining_cv)
+        self.assertFalse(preset.nohead)
+        self.assertTrue(preset.novcv)
+        self.assertTrue(preset.only_consonant)
+        self.assertEqual(preset.vowel["a"],"a")
+        self.assertEqual(len(preset.vowel),1)
+        self.assertEqual(preset.consonant["a"],"a")
+        self.assertEqual(len(preset.consonant),1)
+        self.assertEqual(preset.consonant_time["a"],1)
+        self.assertEqual(len(preset.replace),1)
+        self.assertEqual(preset.replace[0][0],"あ")
+        self.assertEqual(preset.replace[0][1],"a")
+        
+    def test_check_nohead_2(self):
+        preset = Preset.Preset(os.path.join("tests","data","preset","check_nohead_2.ini"))
+        self.assertFalse(preset.begining_cv)
+        self.assertTrue(preset.nohead)

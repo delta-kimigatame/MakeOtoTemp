@@ -347,7 +347,7 @@ class Preset:
         entry = settings.ENTRIES
 
         with codecs.open(filename, "r", "utf-8") as fr:
-            data = fr.read()
+            data = fr.read().replace("\ufeff","")
         lines = data.replace("\r","").split("\n")
 
         for line in lines:
@@ -367,11 +367,18 @@ class Preset:
             elif mode == "UNDER":
                 self.__under = (1 == int(line))
             elif mode == "NOHEAD":
-                self.__nohead = int(line)
+                if int(line)==2:
+                    self.__nohead = True
+                    self.__begining_cv = False
+                else:
+                    self.__nohead = False
+                    self.__begining_cv = (0 == int(line))
+
+
             elif mode == "NOVCV":
-                self.__novcv = int(line)
+                self.__novcv = (1 == int(line))
             elif mode == "ONLYCONSONANT":
-                self.__only_consonant = int(line)
+                self.__only_consonant = (1 == int(line))
             elif mode == "VOWEL":
                 value, keys = line.split("=")
                 for k in keys.split(","):
@@ -382,6 +389,6 @@ class Preset:
                 for cv in cvs.split(","):
                     self.__consonant[cv] = value
             elif mode == "REPLACE":
-                self.__replace = line.split("=")
+                self.__replace.append(line.split("="))
 
 
