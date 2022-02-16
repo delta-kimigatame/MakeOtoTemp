@@ -230,6 +230,11 @@ class Preset:
         ----------
         filename :str ,default "mkototemp.ini"
             実行ファイルからの相対パス
+
+        Raises
+        ------
+        OSError
+            filenameへの書き込み権限がなかったとき
         '''
 
         line :list =[]
