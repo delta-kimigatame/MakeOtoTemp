@@ -337,6 +337,17 @@ class Preset:
         ----------
         filename :str ,default "mkototemp.ini"
             実行ファイルからの相対パス
+
+        Raises
+        ------
+        UnicodeDecodeError
+            プリセットの文字コードがutf-8ではなかったとき
+        TypeError
+            プリセットで数字を入力すべき箇所に数字以外が入力されたとき
+        ValueError
+            プリセットのフォーマットが適切ではないとき。
+            具体的には、tempoやoffsetに負の数が入力された場合と
+            vowel,consonant,replaceの区切り文字が適切ではないとき
         '''
         mode :str = ""
         data :str
@@ -346,8 +357,12 @@ class Preset:
 
         entry = settings.ENTRIES
 
-        with codecs.open(filename, "r", "utf-8") as fr:
-            data = fr.read().replace("\ufeff","")
+        try:
+            with codecs.open(filename, "r", "utf-8") as fr:
+                data = fr.read().replace("\ufeff","")
+        except UnicodeDecodeError as e:
+            e.reason = "PRESET ERROR:" + filename + "の文字コードがutf-8ではないため、読み込みに失敗しました。"
+            raise e
         lines = data.replace("\r","").split("\n")
 
         for line in lines:
@@ -359,36 +374,70 @@ class Preset:
                 continue
 
             if mode == "TEMPO":
-                self.__tempo = float(line)
+                try:
+                    self.__tempo = float(line)
+                except:
+                    raise TypeError("PRESET ERROR:" + filename + "の[TEMPO]に数字以外が入力されています。\n半角数字を入力してください。\n"+line)
+                if self.__tempo <= 0:
+                    raise ValueError("PRESET ERROR:" + filename + "の[TEMPO]に0以下の数字が入力されています。\n"+line)
             elif mode == "OFFSET":
-                self.__offset = float(line)
+                try:
+                    self.__offset = float(line)
+                except:
+                    raise TypeError("PRESET ERROR:" + filename + "の[OFFSET]に数字以外が入力されています。\n半角数字を入力してください。\n"+line)
+                if self.__offset < 0:
+                    raise ValueError("PRESET ERROR:" + filename + "の[OFFSET]に負の数字が入力されています。\n"+line)
             elif mode == "MAXNUM":
-                self.__max = int(line)
+                try:
+                    self.__max = int(line)
+                except:
+                    raise TypeError("PRESET ERROR:" + filename + "の[MAXNUM]に数字以外が入力されています。\n半角数字を入力してください。\n"+line)
+                
             elif mode == "UNDER":
-                self.__under = (1 == int(line))
+                try:
+                    self.__under = (1 == int(line))
+                except:
+                    raise TypeError("PRESET ERROR:" + filename + "の[UNDER]に数字以外が入力されています。\n0か1を入力してください。\n"+line)
+                
             elif mode == "NOHEAD":
-                if int(line)==2:
-                    self.__nohead = True
-                    self.__begining_cv = False
-                else:
-                    self.__nohead = False
-                    self.__begining_cv = (0 == int(line))
-
-
+                try:
+                    if int(line)==2:
+                        self.__nohead = True
+                        self.__begining_cv = False
+                    else:
+                        self.__nohead = False
+                        self.__begining_cv = (0 == int(line))
+                except:
+                    raise TypeError("PRESET ERROR:" + filename + "の[NOHEAD]に数字以外が入力されています。\n0か1か2を入力してください。\n"+line)
             elif mode == "NOVCV":
-                self.__novcv = (1 == int(line))
+                try:
+                    self.__novcv = (1 == int(line))
+                except:
+                    raise TypeError("PRESET ERROR:" + filename + "の[NOVCV]に数字以外が入力されています。\n0か1を入力してください。\n"+line)
             elif mode == "ONLYCONSONANT":
-                self.__only_consonant = (1 == int(line))
+                try:
+                    self.__only_consonant = (1 == int(line))
+                except:
+                    raise TypeError("PRESET ERROR:" + filename + "の[ONLYCONSONANT]に数字以外が入力されています。\n0か1を入力してください。\n"+line)
             elif mode == "VOWEL":
-                value, keys = line.split("=")
-                for k in keys.split(","):
-                    self.__vowel[k] = value
+                if "=" in line:
+                    value, keys = line.split("=")
+                    for k in keys.split(","):
+                        self.__vowel[k] = value
+                else:
+                    raise ValueError("PRESET ERROR:" + filename + "の[VOWELS]に\"=\"が含まれていない行があります。\n"+line)
             elif mode == "CONSONANT":
-                value, cvs, time = line.split("=")
-                self.__consonant_time[value] = float(time)
-                for cv in cvs.split(","):
-                    self.__consonant[cv] = value
+                if line.count("=")==2:
+                    value, cvs, time = line.split("=")
+                    self.__consonant_time[value] = float(time)
+                    for cv in cvs.split(","):
+                        self.__consonant[cv] = value
+                else:
+                    raise ValueError("PRESET ERROR:" + filename + "の[CONSONANT]のフォーマットが正しくない行があります。\n"+line)
             elif mode == "REPLACE":
-                self.__replace.append(line.split("="))
+                if "=" in line:
+                    self.__replace.append(line.split("="))
+                else:
+                    raise ValueError("PRESET ERROR:" + filename + "の[REPLACE]に\"=\"が含まれていない行があります。\n"+line)
 
 

@@ -82,3 +82,86 @@ class Test_test_read_preset(unittest.TestCase):
         preset = Preset.Preset(os.path.join("tests","data","preset","check_nohead_2.ini"))
         self.assertFalse(preset.begining_cv)
         self.assertTrue(preset.nohead)
+        
+        
+    def test_error_cp932(self):
+        filename=os.path.join("tests","data","preset","cp932.ini")
+        with self.assertRaises(UnicodeDecodeError) as cm:
+            preset = Preset.Preset(filename)
+        self.assertEqual(cm.exception.reason,"PRESET ERROR:" + filename + "の文字コードがutf-8ではないため、読み込みに失敗しました。")
+            
+    def test_error_tempo(self):
+        filename=os.path.join("tests","data","preset","error_tempo.ini")
+        with self.assertRaises(TypeError) as cm:
+            preset = Preset.Preset(filename)
+        self.assertEqual(cm.exception.args[0],"PRESET ERROR:" + filename + "の[TEMPO]に数字以外が入力されています。\n半角数字を入力してください。\n100,0")
+            
+    def test_error_tempo_zero(self):
+        filename=os.path.join("tests","data","preset","error_tempo_zero.ini")
+        with self.assertRaises(ValueError) as cm:
+            preset = Preset.Preset(filename)
+        self.assertEqual(cm.exception.args[0],"PRESET ERROR:" + filename + "の[TEMPO]に0以下の数字が入力されています。\n0")
+        
+    def test_error_offset(self):
+        filename=os.path.join("tests","data","preset","error_offset.ini")
+        with self.assertRaises(TypeError) as cm:
+            preset = Preset.Preset(filename)
+        self.assertEqual(cm.exception.args[0],"PRESET ERROR:" + filename + "の[OFFSET]に数字以外が入力されています。\n半角数字を入力してください。\n800,0")
+            
+    def test_error_offset_minus(self):
+        filename=os.path.join("tests","data","preset","error_offset_minus.ini")
+        with self.assertRaises(ValueError) as cm:
+            preset = Preset.Preset(filename)
+        self.assertEqual(cm.exception.args[0],"PRESET ERROR:" + filename + "の[OFFSET]に負の数字が入力されています。\n-1")
+        
+    def test_error_maxnum(self):
+        filename=os.path.join("tests","data","preset","error_maxnum.ini")
+        with self.assertRaises(TypeError) as cm:
+            preset = Preset.Preset(filename)
+        self.assertEqual(cm.exception.args[0],"PRESET ERROR:" + filename + "の[MAXNUM]に数字以外が入力されています。\n半角数字を入力してください。\na")
+        
+    def test_error_under(self):
+        filename=os.path.join("tests","data","preset","error_under.ini")
+        with self.assertRaises(TypeError) as cm:
+            preset = Preset.Preset(filename)
+        self.assertEqual(cm.exception.args[0],"PRESET ERROR:" + filename + "の[UNDER]に数字以外が入力されています。\n0か1を入力してください。\na")
+        
+    def test_error_nohead(self):
+        filename=os.path.join("tests","data","preset","error_nohead.ini")
+        with self.assertRaises(TypeError) as cm:
+            preset = Preset.Preset(filename)
+        self.assertEqual(cm.exception.args[0],"PRESET ERROR:" + filename + "の[NOHEAD]に数字以外が入力されています。\n0か1か2を入力してください。\na")
+        
+    def test_error_novcv(self):
+        filename=os.path.join("tests","data","preset","error_novcv.ini")
+        with self.assertRaises(TypeError) as cm:
+            preset = Preset.Preset(filename)
+        self.assertEqual(cm.exception.args[0],"PRESET ERROR:" + filename + "の[NOVCV]に数字以外が入力されています。\n0か1を入力してください。\na")
+        
+    def test_error_onlyconsonant(self):
+        filename=os.path.join("tests","data","preset","error_onlyconsonant.ini")
+        with self.assertRaises(TypeError) as cm:
+            preset = Preset.Preset(filename)
+        self.assertEqual(cm.exception.args[0],"PRESET ERROR:" + filename + "の[ONLYCONSONANT]に数字以外が入力されています。\n0か1を入力してください。\na")
+        
+        
+    def test_error_vowel(self):
+        filename=os.path.join("tests","data","preset","error_vowel.ini")
+        with self.assertRaises(ValueError) as cm:
+            preset = Preset.Preset(filename)
+        self.assertEqual(cm.exception.args[0],"PRESET ERROR:" + filename + "の[VOWELS]に\"=\"が含まれていない行があります。\na")
+        
+
+    def test_error_consonant(self):
+        filename=os.path.join("tests","data","preset","error_consonant.ini")
+        with self.assertRaises(ValueError) as cm:
+            preset = Preset.Preset(filename)
+        self.assertEqual(cm.exception.args[0],"PRESET ERROR:" + filename + "の[CONSONANT]のフォーマットが正しくない行があります。\na=a")
+        
+
+    def test_error_replace(self):
+        filename=os.path.join("tests","data","preset","error_replace.ini")
+        with self.assertRaises(ValueError) as cm:
+            preset = Preset.Preset(filename)
+        self.assertEqual(cm.exception.args[0],"PRESET ERROR:" + filename + "の[REPLACE]に\"=\"が含まれていない行があります。\na")
+        

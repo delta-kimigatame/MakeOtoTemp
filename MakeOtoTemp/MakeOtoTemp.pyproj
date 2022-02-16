@@ -27,7 +27,16 @@
   <ItemGroup>
     <Compile Include="MakeOtoTemp.py" />
     <Compile Include="Oto.py" />
+    <Compile Include="Preset.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="settings.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="tests\test_oto.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="tests\test_preset.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="tests\__init__.py" />
@@ -45,6 +54,25 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="tests\" />
+    <Folder Include="tests\data\" />
+    <Folder Include="tests\data\preset\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="tests\data\preset\cp932.ini" />
+    <Content Include="tests\data\preset\error_replace.ini" />
+    <Content Include="tests\data\preset\error_nohead.ini" />
+    <Content Include="tests\data\preset\error_consonant.ini" />
+    <Content Include="tests\data\preset\error_vowel.ini" />
+    <Content Include="tests\data\preset\error_onlyconsonant.ini" />
+    <Content Include="tests\data\preset\error_novcv.ini" />
+    <Content Include="tests\data\preset\error_under.ini" />
+    <Content Include="tests\data\preset\error_offset.ini" />
+    <Content Include="tests\data\preset\error_offset_minus.ini" />
+    <Content Include="tests\data\preset\error_maxnum.ini" />
+    <Content Include="tests\data\preset\error_tempo_zero.ini" />
+    <Content Include="tests\data\preset\error_tempo.ini" />
+    <Content Include="tests\data\preset\check_nohead_2.ini" />
+    <Content Include="tests\data\preset\other_param.ini" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
