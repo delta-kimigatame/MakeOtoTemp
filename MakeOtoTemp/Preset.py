@@ -17,24 +17,24 @@ class Preset:
     max :int
         同じエイリアスをいくつ生成するか
     under :bool
-        アンダーバーの扱い
-        Flaseだと無視、Trueだと休符扱いにします。
+        | アンダーバーの扱い
+        | Flaseだと無視、Trueだと休符扱いにします。
     begining_cv :bool
-        wavの頭のエイリアスの種類
-        Trueだと[- CV]を生成
-        Falseだと[CV]を生成
+        | wavの頭のエイリアスの種類
+        | Trueだと[- CV]を生成
+        | Falseだと[CV]を生成
     nohead :bool
-        wavの頭のエイリアス生成の有無
-        Trueだと生成
-        Falseだとwavの頭からは生成しません。
+        | wavの頭のエイリアス生成の有無
+        | Trueだと生成
+        | Falseだとwavの頭からは生成しません。
     novcv :bool
-        [V CV]の生成規則
-        Falseで生成
-        Trueで生成しない
+        | [V CV]の生成規則
+        | Falseで生成
+        | Trueで生成しない
     only_consonant :bool
-        [C]の生成規則
-        Falseで生成しない
-        Trueで生成する
+        | [C]の生成規則
+        | Falseで生成しない
+        | Trueで生成する
     vowel :dict
         母音のバリエーションを指定
     consonant :dict
@@ -115,9 +115,9 @@ class Preset:
         Returns
         -------
         begining_cv :bool
-            wavの頭のエイリアスの種類
-            Trueだと[- CV]を生成
-            Falseだと[CV]を生成
+            | wavの頭のエイリアスの種類
+            | Trueだと[- CV]を生成
+            | Falseだと[CV]を生成
         '''
         return self.__begining_cv
 
@@ -129,9 +129,9 @@ class Preset:
         Returns
         -------
         nohead :bool
-            wavの頭のエイリアス生成の有無
-            Trueだと生成
-            Falseだとwavの頭からは生成しません。
+            | wavの頭のエイリアス生成の有無
+            | Trueだと生成
+            | Falseだとwavの頭からは生成しません。
         '''
         return self.__nohead
     
@@ -143,9 +143,9 @@ class Preset:
         Returns
         -------
         novcv :bool
-            [V CV]の生成規則
-            Falseで生成
-            Trueで生成しない
+            | [V CV]の生成規則
+            | Falseで生成
+            | Trueで生成しない
         '''
         return self.__novcv
 
@@ -157,9 +157,9 @@ class Preset:
         Returns
         -------
         only_consonant :bool
-            [C]の生成規則
-            Falseで生成しない
-            Trueで生成する
+            | [C]の生成規則
+            | Falseで生成しない
+            | Trueで生成する
         '''
         return self.__only_consonant
     
@@ -171,9 +171,9 @@ class Preset:
         Returns
         -------
         vowel :dict
-            母音のバリエーションを指定
-            keyはCVに後方一致する文字列
-            valueは[V CV]の前半のVに当たる文字列
+            | 母音のバリエーションを指定
+            | keyはCVに後方一致する文字列
+            | valueは[V CV]の前半のVに当たる文字列
         '''
         return self.__vowel
     
@@ -185,12 +185,12 @@ class Preset:
         Returns
         -------
         consonant :dict
-            子音のバリエーションを指定
-            keyは[CV]に完全一致する文字列
-            valueは子音の[V C]のときのCにあたる文字列
+            | 子音のバリエーションを指定
+            | keyは[CV]に完全一致する文字列
+            | valueは子音の[V C]のときのCにあたる文字列
 
-            valueが""のものは、連続音のみを生成する例外
-            valueが"・"のものは"・ "に置き換えて適用(eve式喉切母音の例外)
+            | valueが""のものは、連続音のみを生成する例外
+            | valueが"・"のものは"・ "に置き換えて適用(eve式喉切母音の例外)
         '''
         return self.__consonant
     
@@ -202,9 +202,9 @@ class Preset:
         Returns
         -------
         consonant_time :dict
-            子音の標準長さをmsで指定
-            keyは子音にあたる文字列
-            valueは長さ(ms)
+            | 子音の標準長さをmsで指定
+            | keyは子音にあたる文字列
+            | valueは長さ(ms)
         '''
         return self.__consonant_time
 
@@ -216,8 +216,8 @@ class Preset:
         Returns
         -------
         replace :list
-            ファイル名とエイリアスの置換を指定
-            keyは変換前の文字、valueは変換後の文字
+            | ファイル名とエイリアスの置換を指定
+            | keyは変換前の文字、valueは変換後の文字
         '''
         return self.__replace
 
@@ -300,8 +300,8 @@ class Preset:
 
     def __init__(self, filename: str = "mkototemp.ini"):
         '''
-        filenameのプリセットを読み込む。
-        もしfilenameにプリセットが存在しない場合、デフォルトプリセットを作成する。
+        | filenameのプリセットを読み込む。
+        | もしfilenameにプリセットが存在しない場合、デフォルトプリセットを作成する。
 
         Parameters
         ----------
@@ -329,14 +329,14 @@ class Preset:
             self.__consonant = {}
             self.__consonant_time = {}
             self.__replace = []
-            self.__Read(filename)
+            self.Read(filename)
 
 
-    def __Read(self, filename: str = "mkototemp.ini"):
+    def Read(self, filename: str = "mkototemp.ini"):
         '''
-        filenameのプリセットを読み込む。
-        filenameの有無は事前にチェック済みのものとする。
-        各パラメータは事前に初期化済みとする。
+        | filenameのプリセットを読み込む。
+        | filenameの有無は事前にチェック済みのものとする。
+        | 各パラメータは事前に初期化済みとする。
 
         Parameters
         ----------
@@ -350,9 +350,9 @@ class Preset:
         TypeError
             プリセットで数字を入力すべき箇所に数字以外が入力されたとき
         ValueError
-            プリセットのフォーマットが適切ではないとき。
-            具体的には、tempoやoffsetに負の数が入力された場合と
-            vowel,consonant,replaceの区切り文字が適切ではないとき
+            | プリセットのフォーマットが適切ではないとき。
+            | 具体的には、tempoやoffsetに負の数が入力された場合と
+            | vowel,consonant,replaceの区切り文字が適切ではないとき
         '''
         mode :str = ""
         data :str

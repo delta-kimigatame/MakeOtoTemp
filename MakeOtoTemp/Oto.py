@@ -17,12 +17,12 @@
     consonant :float
         子音部(setparamでいうところの固定範囲)
     blank :float
-        ブランク(setparamでいうところの右ブランク)
-        正の値のときはwav末尾からのmsを表す。
-        負の値のときはオフセットからのmsの絶対値に-1をかけたものを表す。
+        | ブランク(setparamでいうところの右ブランク)
+        | 正の値のときはwav末尾からのmsを表す。
+        | 負の値のときはオフセットからのmsの絶対値に-1をかけたものを表す。
     rounds :int ,default -1
-        書き出し時の各パラメータを小数何桁で丸めるかを指定する。
-        -1の時は丸めない。
+        | 書き出し時の各パラメータを小数何桁で丸めるかを指定する。
+        | -1の時は丸めない。
     '''
 
     filename :str
@@ -52,9 +52,9 @@
         consonant :float
             子音部(setparamでいうところの固定範囲)
         blank :float
-            ブランク(setparamでいうところの右ブランク)
-            正の値のときはwav末尾からのmsを表す。
-            負の値のときはオフセットからのmsの絶対値に-1をかけたものを表す。
+            | ブランク(setparamでいうところの右ブランク)
+            | 正の値のときはwav末尾からのmsを表す。
+            | 負の値のときはオフセットからのmsの絶対値に-1をかけたものを表す。
         '''
         self.filename = filename
         self.alias = alias
@@ -67,8 +67,8 @@
 
     def __str__(self) -> str:
         '''
-        oto.iniに書き出す形式の文字列を返す。
-        floatはroundsで与えられた桁数で丸める。
+        | oto.iniに書き出す形式の文字列を返す。
+        | floatはroundsで与えられた桁数で丸める。
         
         Returns
         -------
