@@ -2,6 +2,8 @@
 import os.path
 import codecs
 
+import settings
+
 class Preset:
     '''
     MakeOtoTempのプリセットファイルを扱う
@@ -14,22 +16,25 @@ class Preset:
         録音の開始時間(ms)
     max :int
         同じエイリアスをいくつ生成するか
-    under :int
+    under :bool
         アンダーバーの扱い
-        0だと無視、1だと休符扱いにします。
-    nohead :int
-        wavの頭のエイリアス生成規則
-        0だと[- CV]を生成
-        1だと[CV]を生成
-        2だとwavの頭からは生成しません。
-    novcv :int
+        Flaseだと無視、Trueだと休符扱いにします。
+    begining_cv :bool
+        wavの頭のエイリアスの種類
+        Trueだと[- CV]を生成
+        Falseだと[CV]を生成
+    nohead :bool
+        wavの頭のエイリアス生成の有無
+        Trueだと生成
+        Falseだとwavの頭からは生成しません。
+    novcv :bool
         [V CV]の生成規則
-        0で生成
-        1で生成しない
-    only_consonant :int
+        Falseで生成
+        Trueで生成しない
+    only_consonant :bool
         [C]の生成規則
-        0で生成しない
-        1で生成する
+        Falseで生成しない
+        Trueで生成する
     vowel :dict
         母音のバリエーションを指定
     consonant :dict
@@ -43,10 +48,11 @@ class Preset:
     __tempo :float
     __offset :float
     __max :int
-    __under :int
-    __nohead :int
-    __novcv :int
-    __only_consonant :int
+    __under :bool
+    __begining_cv :bool
+    __nohead :bool
+    __novcv :bool
+    __only_consonant :bool
     __vowel :dict
     __consonant :dict
     __consonant_time :dict
@@ -89,49 +95,62 @@ class Preset:
         return self.__max
     
     @property
-    def under(self) -> int:
+    def under(self) -> bool:
         '''
         読み込んだプリセットからパラメータを返す。
 
         Returns
         -------
-        under :int
+        under :bool
             アンダーバーの扱い
-            0だと無視、1だと休符扱いにします。
+            Flaseだと無視、Trueだと休符扱いにします。
         '''
         return self.__under
     
     @property
-    def nohead(self) -> int:
+    def begining_cv(self) -> bool:
         '''
         読み込んだプリセットからパラメータを返す。
 
         Returns
         -------
-        nohead :int
-            wavの頭のエイリアス生成規則
-            0だと[- CV]を生成
-            1だと[CV]を生成
-            2だとwavの頭からは生成しません。
+        begining_cv :bool
+            wavの頭のエイリアスの種類
+            Trueだと[- CV]を生成
+            Falseだと[CV]を生成
+        '''
+        return self.__begining_cv
+
+    @property
+    def nohead(self) -> bool:
+        '''
+        読み込んだプリセットからパラメータを返す。
+
+        Returns
+        -------
+        nohead :bool
+            wavの頭のエイリアス生成の有無
+            Trueだと生成
+            Falseだとwavの頭からは生成しません。
         '''
         return self.__nohead
     
     @property
-    def novcv(self) -> int:
+    def novcv(self) -> bool:
         '''
         読み込んだプリセットからパラメータを返す。
 
         Returns
         -------
-        novcv :int
+        novcv :bool
             [V CV]の生成規則
-            0で生成
-            1で生成しない
+            Falseで生成
+            Trueで生成しない
         '''
         return self.__novcv
 
     @property
-    def only_consonant(self) -> int:
+    def only_consonant(self) -> bool:
         '''
         読み込んだプリセットからパラメータを返す。
 
@@ -139,8 +158,8 @@ class Preset:
         -------
         only_consonant :bool
             [C]の生成規則
-            0で生成しない
-            1で生成する
+            Falseで生成しない
+            Trueで生成する
         '''
         return self.__only_consonant
     
@@ -203,8 +222,7 @@ class Preset:
         return self.__replace
 
 
-    @staticmethod
-    def Make(filename :str = "mkototemp.ini"):
+    def Make(self, filename :str = "mkototemp.ini"):
         '''
         デフォルト値でプリセットファイルを作成します。
 
@@ -216,61 +234,60 @@ class Preset:
 
         line :list =[]
         line.append("[TEMPO]")
-        line.append("100")
+        line.append(str(self.__tempo))
+
         line.append("[OFFSET]")
-        line.append("800")
+        line.append(str(settings.__offset))
+
         line.append("[MAXNUM]")
-        line.append("2")
+        line.append(str(settings.__max))
+
         line.append("[UNDER]")
-        line.append("1")
+        if self.__under:
+            line.append("1")
+        else:
+            line.append("0")
+
         line.append("[NOHEAD]")
-        line.append("0")
+        if self.__nohead:
+            line.append("2")
+        elif self.__begining_cv:
+            line.append("0")
+        else:
+            line.apopend("1")
+
         line.append("[NOVCV]")
-        line.append("0")
+        if self.__novcv:
+            line.append("1")
+        else:
+            line.append("0")
+
         line.append("[ONLYCONSONANT]")
-        line.append("0")
+        if self.__only_consonant:
+            line.append("1")
+        else:
+            line.append("0")
+
         line.append("[VOWEL]")
-        line.append("a=ぁ,あ,か,が,さ,ざ,た,だ,な,は,ば,ぱ,ま,ゃ,や,ら,わ,ァ,ア,カ,ガ,サ,ザ,タ,ダ,ナ,ハ,バ,パ,マ,ャ,ヤ,ラ,ワ")
-        line.append("e=ぇ,え,け,げ,せ,ぜ,て,で,ね,へ,べ,ぺ,め,れ,ゑ,ェ,エ,ケ,ゲ,セ,ゼ,テ,デ,ネ,ヘ,ベ,ペ,メ,レ,ヱ")
-        line.append("i=ぃ,い,き,ぎ,し,じ,ち,ぢ,に,ひ,び,ぴ,み,り,ゐ,ィ,イ,キ,ギ,シ,ジ,チ,ヂ,ニ,ヒ,ビ,ピ,ミ,リ,ヰ")
-        line.append("o=ぉ,お,こ,ご,そ,ぞ,と,ど,の,ほ,ぼ,ぽ,も,ょ,よ,ろ,を,ォ,オ,コ,ゴ,ソ,ゾ,ト,ド,ノ,ホ,ボ,ポ,モ,ョ,ヨ,ロ,ヲ")
-        line.append("n=ん,ン")
-        line.append("u=ぅ,う,く,ぐ,す,ず,つ,づ,ぬ,ふ,ぶ,ぷ,む,ゅ,ゆ,る,ゥ,ウ,ク,グ,ス,ズ,ツ,ヅ,ヌ,フ,ブ,プ,ム,ュ,ユ,ル,ヴ")
+        vowels :dict = {}
+        for kana, vowel in self.__vowels.items():
+            if vowel in vowels.keys():
+                vowels[vowel].append(kana)
+            else:
+                vowels[vowel] = [kana]
+
+        for vowel,kanas in vowels.items():
+            line.append(vowel + "=" + ",".join(kanas))
+
         line.append("[CONSONANT]")
-        line.append("=あ,い,う,え,お,ん,息,吸=0")
-        line.append("ch=ch,ち,ちぇ,ちゃ,ちゅ,ちょ=150")
-        line.append("gy=gy,ぎ,ぎぇ,ぎゃ,ぎゅ,ぎょ=60")
-        line.append("ts=ts,つ,つぁ,つぃ,つぇ,つぉ=170")
-        line.append("ty=ty,てぃ,てぇ,てゃ,てゅ,てょ=75")
-        line.append("py=py,ぴ,ぴぇ,ぴゃ,ぴゅ,ぴょ=100")
-        line.append("ry=ry,り,りぇ,りゃ,りゅ,りょ=70")
-        line.append("ny=ny,に,にぇ,にゃ,にゅ,にょ=70")
-        line.append("r=r,ら,る,れ,ろ=70")
-        line.append("hy=hy,ひ,ひぇ,ひゃ,ひゅ,ひょ=100")
-        line.append("dy=dy,でぃ,でぇ,でゃ,でゅ,でょ=75")
-        line.append("by=by,び,びぇ,びゃ,びゅ,びょ=45")
-        line.append("b=b,ば,ぶ,べ,ぼ=50")
-        line.append("d=d,だ,で,ど,どぅ=60")
-        line.append("g=g,が,ぐ,げ,ご=80")
-        line.append("f=f,ふ,ふぁ,ふぃ,ふぇ,ふぉ=130")
-        line.append("h=h,は,へ,ほ=110")
-        line.append("k=k,か,く,け,こ=100")
-        line.append("j=j,じ,じぇ,じゃ,じゅ,じょ=110")
-        line.append("m=m,ま,む,め,も=75")
-        line.append("n=n,な,ぬ,ね,の=70")
-        line.append("p=p,ぱ,ぷ,ぺ,ぽ=100")
-        line.append("s=s,さ,す,すぃ,せ,そ=150")
-        line.append("sh=sh,し,しぇ,しゃ,しゅ,しょ=200")
-        line.append("t=t,た,て,と,とぅ=100")
-        line.append("w=w,うぃ,うぅ,うぇ,うぉ,わ,を=50")
-        line.append("v=v,ヴ,ヴぁ,ヴぃ,ヴぅ,ヴぇ,ヴぉ=100")
-        line.append("y=y,いぃ,いぇ,や,ゆ,よ,ゐ,ゑ=30")
-        line.append("ky=ky,き,きぇ,きゃ,きゅ,きょ=130")
-        line.append("z=z,ざ,ず,ずぃ,ぜ,ぞ=80")
-        line.append("my=my,み,みぇ,みゃ,みゅ,みょ=60")
-        line.append("ng=ガ,グ,ゲ,ゴ=50")
-        line.append("ngy=ギャ,ギ,ギュ,ギェ,ギョ=40")
-        line.append("・=・あ,・い,・う,・え,・お,・ん=50")
+        consonants :dict = {}
+        for consonant in self.__consonant_time.keys():
+            consonants[consonant] = []
+        for cv,consonant in self.__consonant.items():
+            consonants[consonant].append(cv)
+
+        for consonant,cvs in consonants.items():
+            line.append(consonant + "=" + ",".join(cvs) + "=" + str(self.__consonant_time[consonant]))
 
         with codecs.open(filename, "w", "utf-8") as fw:
             fw.write("\r\n".join(line))
@@ -279,7 +296,7 @@ class Preset:
     def __init__(self, filename: str = "mkototemp.ini"):
         '''
         filenameのプリセットを読み込む。
-        もしfilenameにプリセットが存在しない場合、デフォルトプリセットを作成し読み込む。
+        もしfilenameにプリセットが存在しない場合、デフォルトプリセットを作成する。
 
         Parameters
         ----------
@@ -287,45 +304,24 @@ class Preset:
             実行ファイルからの相対パス
         '''
 
+        self.__tempo = settings.DEFAULT_TEMPO
+        self.__offset = settings.DEFAULT_OFFSET
+        self.__max = settings.DEFAULT_MAX
+        self.__under = settings.DEFAULT_UNDER
+        self.__begining_cv = settings.DEFAULT_BEGINING_CV
+        self.__nohead = settings.DEFAULT_NO_HEAD
+        self.__novcv = settings.DEFAULT_NO_VCV
+        self.__only_consonant = settings.DEFAULT_ONLY_CONSONANT
+        self.__vowel = settings.DEFAULT_VOWEL
+        self.__consonant = settings.DEFAULT_CONSONANT
+        self.__consonant_time = settings.DEFAULT_CONSONANT_TIME
+        self.__replace = settings.DEFAULT_REPLACE
+        
         if not os.path.isfile(filename):
             self.Make(filename)
+        else:
+            self.__Read(filename)
 
-        self.__tempo = 100
-        self.__offset = 800
-        self.__max = 2
-        self.__under = 1
-        self.__nohead = 0
-        self.__novcv = 0
-        self.__only_consonant = 0
-        self.__vowel = {}
-        self.__consonant = {}
-        self.__consonant_time = {}
-        self.__replace = []
-
-        self.__Read(filename)
-
-    @staticmethod
-    def __InitEntries() -> list:
-        '''
-        presetのエントリーを定義する
-
-        Returns
-        -------
-        entries :list
-            [TEMPO]、[VOWEL]などのエントリー文字列のリスト
-        '''
-        entries :list = []
-        entries.append("[TEMPO]")
-        entries.append("[OFFSET]")
-        entries.append("[MAXNUM]")
-        entries.append("[UNDER]")
-        entries.append("[NOHEAD]")
-        entries.append("[NOVCV]")
-        entries.append("[ONLYCONSONANT]")
-        entries.append("[VOWEL]")
-        entries.append("[CONSONANT]")
-        entries.append("[REPLACE]")
-        return entries
 
     def __Read(self, filename: str = "mkototemp.ini"):
         '''
@@ -344,7 +340,7 @@ class Preset:
         line : str
         entry : list
 
-        entry = self.__InitEntries()
+        entry = settings.ENTRIES
 
         with codecs.open(filename, "r", "utf-8") as fr:
             data = fr.read()
@@ -365,7 +361,7 @@ class Preset:
             elif mode == "MAXNUM":
                 self.__max = int(line)
             elif mode == "UNDER":
-                self.__under = int(line)
+                self.__under = (1 == int(line))
             elif mode == "NOHEAD":
                 self.__nohead = int(line)
             elif mode == "NOVCV":
