@@ -237,10 +237,10 @@ class Preset:
         line.append(str(self.__tempo))
 
         line.append("[OFFSET]")
-        line.append(str(settings.__offset))
+        line.append(str(self.__offset))
 
         line.append("[MAXNUM]")
-        line.append(str(settings.__max))
+        line.append(str(self.__max))
 
         line.append("[UNDER]")
         if self.__under:
@@ -270,7 +270,7 @@ class Preset:
 
         line.append("[VOWEL]")
         vowels :dict = {}
-        for kana, vowel in self.__vowels.items():
+        for kana, vowel in self.__vowel.items():
             if vowel in vowels.keys():
                 vowels[vowel].append(kana)
             else:
@@ -312,14 +312,18 @@ class Preset:
         self.__nohead = settings.DEFAULT_NO_HEAD
         self.__novcv = settings.DEFAULT_NO_VCV
         self.__only_consonant = settings.DEFAULT_ONLY_CONSONANT
-        self.__vowel = settings.DEFAULT_VOWEL
-        self.__consonant = settings.DEFAULT_CONSONANT
-        self.__consonant_time = settings.DEFAULT_CONSONANT_TIME
-        self.__replace = settings.DEFAULT_REPLACE
         
         if not os.path.isfile(filename):
+            self.__vowel = settings.DEFAULT_VOWEL
+            self.__consonant = settings.DEFAULT_CONSONANT
+            self.__consonant_time = settings.DEFAULT_CONSONANT_TIME
+            self.__replace = settings.DEFAULT_REPLACE
             self.Make(filename)
         else:
+            self.__vowel = {}
+            self.__consonant = {}
+            self.__consonant_time = {}
+            self.__replace = []
             self.__Read(filename)
 
 
