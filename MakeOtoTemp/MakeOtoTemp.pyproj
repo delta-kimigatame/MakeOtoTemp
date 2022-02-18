@@ -25,6 +25,7 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="docs\conf.py" />
     <Compile Include="MakeOtoTemp.py" />
     <Compile Include="Oto.py" />
     <Compile Include="Preset.py">
@@ -53,11 +54,18 @@
     </Interpreter>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="docs\" />
+    <Folder Include="docs\_build\" />
+    <Folder Include="docs\_static\" />
+    <Folder Include="docs\_templates\" />
     <Folder Include="tests\" />
     <Folder Include="tests\data\" />
     <Folder Include="tests\data\preset\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="docs\index.rst" />
+    <Content Include="docs\make.bat" />
+    <Content Include="docs\Makefile" />
     <Content Include="tests\data\preset\cp932.ini" />
     <Content Include="tests\data\preset\error_replace.ini" />
     <Content Include="tests\data\preset\error_nohead.ini" />
