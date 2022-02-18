@@ -1,4 +1,5 @@
 ﻿import os.path
+import codecs
 import unittest
 import MakeOtoTemp
 
@@ -430,3 +431,48 @@ class Test_test_make_oto_param_eng(unittest.TestCase):
         self.assertEqual(self.makeOtoTemp.oto[2].alias, "Si")
         self.assertEqual(self.makeOtoTemp.oto[3].alias, "S")
         self.assertEqual(self.makeOtoTemp.oto[4].alias, "i S-")
+
+class Test_test_write_oto(unittest.TestCase):
+    def setUp(self) -> None:
+        self.makeOtoTemp = MakeOtoTemp.MakeOtoTemp(os.path.join("tests","data","reclist","cp932.txt"))
+
+    def test_write_oto(self):
+        self.makeOtoTemp.MakeOtoParam()
+        self.makeOtoTemp.WriteOto()
+        with codecs.open("oto.ini", "r", "cp932") as fr:
+            writed_data = fr.read().split("\r\n")
+        self.assertEqual(len(writed_data),21)
+        self.assertEqual(writed_data[0], str(self.makeOtoTemp.oto[0]))
+
+    def test_write_oto_maxnum2(self):
+        self.makeOtoTemp._reclist=["_ああいあうえあ","_ああいあうえあ","_ああいあうえあ"]
+        self.makeOtoTemp.MakeOtoParam()
+        self.makeOtoTemp.WriteOto()
+        with codecs.open("oto.ini", "r", "cp932") as fr:
+            writed_data = fr.read().split("\r\n")
+        self.assertEqual(len(writed_data),14)
+        self.assertEqual(writed_data[0], str(self.makeOtoTemp.oto[0]))
+        self.assertTrue("- あ2" in writed_data[7])
+        
+
+    def test_write_oto_maxnum1(self):
+        self.makeOtoTemp._reclist=["_ああいあうえあ","_ああいあうえあ","_ああいあうえあ"]
+        self.makeOtoTemp.preset._max = 1
+        self.makeOtoTemp.MakeOtoParam()
+        self.makeOtoTemp.WriteOto()
+        with codecs.open("oto.ini", "r", "cp932") as fr:
+            writed_data = fr.read().split("\r\n")
+        self.assertEqual(len(writed_data),7)
+        self.assertEqual(writed_data[0], str(self.makeOtoTemp.oto[0]))
+
+    def test_write_oto_maxnum3(self):
+        self.makeOtoTemp._reclist=["_ああいあうえあ","_ああいあうえあ","_ああいあうえあ"]
+        self.makeOtoTemp.preset._max = 3
+        self.makeOtoTemp.MakeOtoParam()
+        self.makeOtoTemp.WriteOto()
+        with codecs.open("oto.ini", "r", "cp932") as fr:
+            writed_data = fr.read().split("\r\n")
+        self.assertEqual(len(writed_data),21)
+        self.assertEqual(writed_data[0], str(self.makeOtoTemp.oto[0]))
+        self.assertTrue("- あ2" in writed_data[7])
+        self.assertTrue("- あ3" in writed_data[14])

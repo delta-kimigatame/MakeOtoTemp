@@ -216,16 +216,25 @@ class MakeOtoTemp:
         ----------
         otopath :str ,default "oto.ini"
             保存する原音設定ファイルのパス
+            
+        Raises
+        ------
+        OSError
+            filenameへの書き込み権限がなかったとき
+
         '''
         writed :dict = {}
         lines :list = []
         for oto in self._oto:
             if oto.alias not in writed:
                 writed[oto.alias] = 1
+                lines.append(str(oto))
             elif writed[oto.alias] >= self.preset.max:
                 continue
-            lines.append(str(oto))
-            writed[oto.alias] = writed[oto.alias] + 1
+            else:
+                writed[oto.alias] = writed[oto.alias] + 1
+                oto.alias = oto.alias + str(writed[oto.alias])
+                lines.append(str(oto))
         with codecs.open(otopath, "w", "cp932") as fw:
             fw.write("\r\n".join(lines))
 
