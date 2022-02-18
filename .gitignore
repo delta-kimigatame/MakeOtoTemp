@@ -365,3 +365,4 @@ FodyWeavers.xsd
 /MakeOtoTemp/env/Scripts
 /MakeOtoTemp/mkototemp.ini
 /MakeOtoTemp/oto.ini
+/MakeOtoTemp/docs/_build/.doctrees
