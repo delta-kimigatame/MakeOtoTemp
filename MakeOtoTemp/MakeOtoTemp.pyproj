@@ -25,7 +25,7 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="docs\conf.py" />
+    <Compile Include="docsource\conf.py" />
     <Compile Include="MakeOtoTemp.py" />
     <Compile Include="Oto.py" />
     <Compile Include="Preset.py">
@@ -58,9 +58,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="docs\" />
-    <Folder Include="docs\_build\" />
     <Folder Include="docs\_static\" />
-    <Folder Include="docs\_templates\" />
+    <Folder Include="docsource\" />
     <Folder Include="tests\" />
     <Folder Include="tests\data\" />
     <Folder Include="tests\data\dummyvb\" />
@@ -69,9 +68,9 @@
     <Folder Include="tests\data\preset\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="docs\index.rst" />
-    <Content Include="docs\make.bat" />
-    <Content Include="docs\Makefile" />
+    <Content Include="docsource\index.rst" />
+    <Content Include="make.bat" />
+    <Content Include="Makefile" />
     <Content Include="tests\data\dummyvb\samplevb1\character.txt" />
     <Content Include="tests\data\dummyvb\samplevb1\_ああいあうえあ_wav.frq" />
     <Content Include="tests\data\dummyvb\samplevb1\_いいうあえいえ_wav.frq" />

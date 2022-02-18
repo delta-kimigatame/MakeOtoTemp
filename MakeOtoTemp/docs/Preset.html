@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Preset module &mdash; MakeOtoTemp 1.0.0 ドキュメント</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/translations.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="検索" href="search.html" />
+    <link rel="prev" title="Oto module" href="Oto.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> MakeOtoTemp
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="MakeOtoTemp.html">MakeOtoTemp module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Oto.html">Oto module</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Preset module</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">MakeOtoTemp</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Preset module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/Preset.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-Preset">
+<span id="preset-module"></span><h1>Preset module<a class="headerlink" href="#module-Preset" title="このヘッドラインへのパーマリンク"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="Preset.Preset">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Preset.</span></span><span class="sig-name descname"><span class="pre">Preset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'mkototemp.ini'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Preset.Preset" title="この定義へのパーマリンク"></a></dt>
+<dd><p>ベースクラス: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>MakeOtoTempのプリセットファイルを扱う</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Preset.Preset.tempo">
+<span class="sig-name descname"><span class="pre">tempo</span></span><a class="headerlink" href="#Preset.Preset.tempo" title="この定義へのパーマリンク"></a></dt>
+<dd><p>収録のbpm</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Preset.Preset.offset">
+<span class="sig-name descname"><span class="pre">offset</span></span><a class="headerlink" href="#Preset.Preset.offset" title="この定義へのパーマリンク"></a></dt>
+<dd><p>録音の開始時間(ms)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Preset.Preset.max">
+<span class="sig-name descname"><span class="pre">max</span></span><a class="headerlink" href="#Preset.Preset.max" title="この定義へのパーマリンク"></a></dt>
+<dd><p>同じエイリアスをいくつ生成するか</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Preset.Preset.under">
+<span class="sig-name descname"><span class="pre">under</span></span><a class="headerlink" href="#Preset.Preset.under" title="この定義へのパーマリンク"></a></dt>
+<dd><div class="line-block">
+<div class="line">アンダーバーの扱い</div>
+<div class="line">Flaseだと無視、Trueだと休符扱いにします。</div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Preset.Preset.begining_cv">
+<span class="sig-name descname"><span class="pre">begining_cv</span></span><a class="headerlink" href="#Preset.Preset.begining_cv" title="この定義へのパーマリンク"></a></dt>
+<dd><div class="line-block">
+<div class="line">wavの頭のエイリアスの種類</div>
+<div class="line">Trueだと[- CV]を生成</div>
+<div class="line">Falseだと[CV]を生成</div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Preset.Preset.nohead">
+<span class="sig-name descname"><span class="pre">nohead</span></span><a class="headerlink" href="#Preset.Preset.nohead" title="この定義へのパーマリンク"></a></dt>
+<dd><div class="line-block">
+<div class="line">wavの頭のエイリアス生成の有無</div>
+<div class="line">Trueだと生成</div>
+<div class="line">Falseだとwavの頭からは生成しません。</div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Preset.Preset.novcv">
+<span class="sig-name descname"><span class="pre">novcv</span></span><a class="headerlink" href="#Preset.Preset.novcv" title="この定義へのパーマリンク"></a></dt>
+<dd><div class="line-block">
+<div class="line">[V CV]の生成規則</div>
+<div class="line">Falseで生成</div>
+<div class="line">Trueで生成しない</div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Preset.Preset.only_consonant">
+<span class="sig-name descname"><span class="pre">only_consonant</span></span><a class="headerlink" href="#Preset.Preset.only_consonant" title="この定義へのパーマリンク"></a></dt>
+<dd><div class="line-block">
+<div class="line">[C]の生成規則</div>
+<div class="line">Falseで生成しない</div>
+<div class="line">Trueで生成する</div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Preset.Preset.vowel">
+<span class="sig-name descname"><span class="pre">vowel</span></span><a class="headerlink" href="#Preset.Preset.vowel" title="この定義へのパーマリンク"></a></dt>
+<dd><p>母音のバリエーションを指定</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Preset.Preset.consonant">
+<span class="sig-name descname"><span class="pre">consonant</span></span><a class="headerlink" href="#Preset.Preset.consonant" title="この定義へのパーマリンク"></a></dt>
+<dd><p>子音のバリエーションを指定</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Preset.Preset.consonant_time">
+<span class="sig-name descname"><span class="pre">consonant_time</span></span><a class="headerlink" href="#Preset.Preset.consonant_time" title="この定義へのパーマリンク"></a></dt>
+<dd><p>子音の標準長さをmsで指定</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Preset.Preset.replace">
+<span class="sig-name descname"><span class="pre">replace</span></span><a class="headerlink" href="#Preset.Preset.replace" title="この定義へのパーマリンク"></a></dt>
+<dd><p>ファイル名とエイリアスの置換を指定</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Preset.Preset.Make">
+<span class="sig-name descname"><span class="pre">Make</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'mkototemp.ini'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Preset.Preset.Make" title="この定義へのパーマリンク"></a></dt>
+<dd><p>デフォルト値でプリセットファイルを作成します。</p>
+<dl class="field-list simple">
+<dt class="field-odd">パラメータ</dt>
+<dd class="field-odd"><p><strong>filename</strong> (<em>str</em><em> ,</em><em>default &quot;mkototemp.ini&quot;</em>) -- 実行ファイルからの相対パス</p>
+</dd>
+<dt class="field-even">例外</dt>
+<dd class="field-even"><p><strong>OSError</strong> -- filenameへの書き込み権限がなかったとき</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Preset.Preset.Read">
+<span class="sig-name descname"><span class="pre">Read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'mkototemp.ini'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Preset.Preset.Read" title="この定義へのパーマリンク"></a></dt>
+<dd><div class="line-block">
+<div class="line">filenameのプリセットを読み込む。</div>
+<div class="line">filenameの有無は事前にチェック済みのものとする。</div>
+<div class="line">各パラメータは事前に初期化済みとする。</div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">パラメータ</dt>
+<dd class="field-odd"><p><strong>filename</strong> (<em>str</em><em> ,</em><em>default &quot;mkototemp.ini&quot;</em>) -- 実行ファイルからの相対パス</p>
+</dd>
+<dt class="field-even">例外</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>UnicodeDecodeError</strong> -- プリセットの文字コードがutf-8ではなかったとき</p></li>
+<li><p><strong>TypeError</strong> -- プリセットで数字を入力すべき箇所に数字以外が入力されたとき</p></li>
+<li><p><strong>ValueError</strong> -- <div class="line-block">
+<div class="line">プリセットのフォーマットが適切ではないとき。
+    | 具体的には、tempoやoffsetに負の数が入力された場合と
+    | vowel,consonant,replaceの区切り文字が適切ではないとき</div>
+</div>
+</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="id0">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">begining_cv</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#id0" title="この定義へのパーマリンク"></a></dt>
+<dd><p>読み込んだプリセットからパラメータを返す。</p>
+<dl class="field-list simple">
+<dt class="field-odd">戻り値</dt>
+<dd class="field-odd"><p><strong>begining_cv</strong> -- | wavの頭のエイリアスの種類
+| Trueだと[- CV]を生成
+| Falseだと[CV]を生成</p>
+</dd>
+<dt class="field-even">戻り値の型</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="id1">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">consonant</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span></em><a class="headerlink" href="#id1" title="この定義へのパーマリンク"></a></dt>
+<dd><p>読み込んだプリセットからパラメータを返す。</p>
+<dl class="field-list simple">
+<dt class="field-odd">戻り値</dt>
+<dd class="field-odd"><p><p><strong>consonant</strong> -- | 子音のバリエーションを指定
+| keyは[CV]に完全一致する文字列
+| valueは子音の[V C]のときのCにあたる文字列</p>
+<div class="line-block">
+<div class="line">valueが&quot;&quot;のものは、連続音のみを生成する例外</div>
+<div class="line">valueが&quot;・&quot;のものは&quot;・ &quot;に置き換えて適用(eve式喉切母音の例外)</div>
+</div>
+</p>
+</dd>
+<dt class="field-even">戻り値の型</dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="id2">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">consonant_time</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span></em><a class="headerlink" href="#id2" title="この定義へのパーマリンク"></a></dt>
+<dd><p>読み込んだプリセットからパラメータを返す。</p>
+<dl class="field-list simple">
+<dt class="field-odd">戻り値</dt>
+<dd class="field-odd"><p><strong>consonant_time</strong> -- | 子音の標準長さをmsで指定
+| keyは子音にあたる文字列
+| valueは長さ(ms)</p>
+</dd>
+<dt class="field-even">戻り値の型</dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="id3">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">max</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#id3" title="この定義へのパーマリンク"></a></dt>
+<dd><p>読み込んだプリセットからパラメータを返す。</p>
+<dl class="field-list simple">
+<dt class="field-odd">戻り値</dt>
+<dd class="field-odd"><p><strong>max</strong> -- 同じエイリアスをいくつ生成するか</p>
+</dd>
+<dt class="field-even">戻り値の型</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="id4">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">nohead</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#id4" title="この定義へのパーマリンク"></a></dt>
+<dd><p>読み込んだプリセットからパラメータを返す。</p>
+<dl class="field-list simple">
+<dt class="field-odd">戻り値</dt>
+<dd class="field-odd"><p><strong>nohead</strong> -- | wavの頭のエイリアス生成の有無
+| Trueだと生成
+| Falseだとwavの頭からは生成しません。</p>
+</dd>
+<dt class="field-even">戻り値の型</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="id5">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">novcv</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#id5" title="この定義へのパーマリンク"></a></dt>
+<dd><p>読み込んだプリセットからパラメータを返す。</p>
+<dl class="field-list simple">
+<dt class="field-odd">戻り値</dt>
+<dd class="field-odd"><p><strong>novcv</strong> -- | [V CV]の生成規則
+| Falseで生成
+| Trueで生成しない</p>
+</dd>
+<dt class="field-even">戻り値の型</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="id6">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">offset</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#id6" title="この定義へのパーマリンク"></a></dt>
+<dd><p>読み込んだプリセットからパラメータを返す。</p>
+<dl class="field-list simple">
+<dt class="field-odd">戻り値</dt>
+<dd class="field-odd"><p><strong>offset</strong> -- 録音の開始時間(ms)</p>
+</dd>
+<dt class="field-even">戻り値の型</dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="id7">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">only_consonant</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#id7" title="この定義へのパーマリンク"></a></dt>
+<dd><p>読み込んだプリセットからパラメータを返す。</p>
+<dl class="field-list simple">
+<dt class="field-odd">戻り値</dt>
+<dd class="field-odd"><p><strong>only_consonant</strong> -- | [C]の生成規則
+| Falseで生成しない
+| Trueで生成する</p>
+</dd>
+<dt class="field-even">戻り値の型</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="id8">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">replace</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span></em><a class="headerlink" href="#id8" title="この定義へのパーマリンク"></a></dt>
+<dd><p>読み込んだプリセットからパラメータを返す。</p>
+<dl class="field-list simple">
+<dt class="field-odd">戻り値</dt>
+<dd class="field-odd"><p><strong>replace</strong> -- | ファイル名とエイリアスの置換を指定
+| keyは変換前の文字、valueは変換後の文字</p>
+</dd>
+<dt class="field-even">戻り値の型</dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="id9">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">tempo</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#id9" title="この定義へのパーマリンク"></a></dt>
+<dd><p>読み込んだプリセットからパラメータを返す。</p>
+<dl class="field-list simple">
+<dt class="field-odd">戻り値</dt>
+<dd class="field-odd"><p><strong>tempo</strong> -- 収録のbpm</p>
+</dd>
+<dt class="field-even">戻り値の型</dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="id10">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">under</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#id10" title="この定義へのパーマリンク"></a></dt>
+<dd><p>読み込んだプリセットからパラメータを返す。</p>
+<dl class="field-list simple">
+<dt class="field-odd">戻り値</dt>
+<dd class="field-odd"><p><strong>under</strong> -- アンダーバーの扱い
+Flaseだと無視、Trueだと休符扱いにします。</p>
+</dd>
+<dt class="field-even">戻り値の型</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="id11">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">vowel</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span></em><a class="headerlink" href="#id11" title="この定義へのパーマリンク"></a></dt>
+<dd><p>読み込んだプリセットからパラメータを返す。</p>
+<dl class="field-list simple">
+<dt class="field-odd">戻り値</dt>
+<dd class="field-odd"><p><strong>vowel</strong> -- | 母音のバリエーションを指定
+| keyはCVに後方一致する文字列
+| valueは[V CV]の前半のVに当たる文字列</p>
+</dd>
+<dt class="field-even">戻り値の型</dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Oto.html" class="btn btn-neutral float-left" title="Oto module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, delta_kimigatame.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
