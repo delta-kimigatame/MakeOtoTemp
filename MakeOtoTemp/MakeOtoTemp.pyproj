@@ -34,6 +34,9 @@
     <Compile Include="settings.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="tests\test_make_oto_temp.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="tests\test_oto.py">
       <SubType>Code</SubType>
     </Compile>
@@ -60,12 +63,22 @@
     <Folder Include="docs\_templates\" />
     <Folder Include="tests\" />
     <Folder Include="tests\data\" />
+    <Folder Include="tests\data\dummyvb\" />
+    <Folder Include="tests\data\dummyvb\samplevb1\" />
+    <Folder Include="tests\data\reclist\" />
     <Folder Include="tests\data\preset\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="docs\index.rst" />
     <Content Include="docs\make.bat" />
     <Content Include="docs\Makefile" />
+    <Content Include="tests\data\dummyvb\samplevb1\character.txt" />
+    <Content Include="tests\data\dummyvb\samplevb1\_ああいあうえあ_wav.frq" />
+    <Content Include="tests\data\dummyvb\samplevb1\_いいうあえいえ_wav.frq" />
+    <Content Include="tests\data\dummyvb\samplevb1\_うういおあおい_wav.frq" />
+    <Content Include="tests\data\dummyvb\samplevb1\_うういおあおい.wav" />
+    <Content Include="tests\data\dummyvb\samplevb1\_いいうあえいえ.wav" />
+    <Content Include="tests\data\dummyvb\samplevb1\_ああいあうえあ.wav" />
     <Content Include="tests\data\preset\cp932.ini" />
     <Content Include="tests\data\preset\error_replace.ini" />
     <Content Include="tests\data\preset\error_nohead.ini" />
@@ -81,6 +94,12 @@
     <Content Include="tests\data\preset\error_tempo.ini" />
     <Content Include="tests\data\preset\check_nohead_2.ini" />
     <Content Include="tests\data\preset\other_param.ini" />
+    <Content Include="tests\data\reclist\gb18030.txt" />
+    <Content Include="tests\data\reclist\image.bmp" />
+    <Content Include="tests\data\reclist\utf-8.txt" />
+    <Content Include="tests\data\reclist\cp932.txt">
+      <SubType>Code</SubType>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

@@ -1,6 +1,8 @@
 ﻿import os
-import sys
 import os.path
+import sys
+import codecs
+import mimetypes
 from typing import Tuple
 
 import Oto
@@ -98,7 +100,7 @@ class MakeOtoTemp:
             Preset書き込み時。詳細はPreset.Preset.Makeを参照
         '''
         
-        if not os.path.exists:
+        if not os.path.exists(input):
             raise FileNotFoundError("INPUT ERROR:"+ input + "は存在しません。")
         self._input = input
         self._GetRecList()
@@ -120,20 +122,22 @@ class MakeOtoTemp:
         UnicodeDecodeError
             inputファイルの文字コードがcp932かutf-8以外だったとき
         '''
-        if os.path.isdir(input):
-            files :list = os.listdir(input)
+        if os.path.isdir(self._input):
+            files :list = os.listdir(self._input)
             filter_files :list = list(filter(lambda file: file.endswith(".wav"), files))
-            self._reclist = map(lambda file: file.replace(".wav",""), filter_files)
+            self._reclist = list(map(lambda file: file.replace(".wav",""), filter_files))
         else:
+            if mimetypes.guess_type(self._input)[0] != "text/plain":
+                raise TypeError("RECLIST ERROR:" + self._input + "はテキストファイルでもフォルダでもないため、開けませんでした")
             try:
-                with codecs.open(input, r, "cp932") as fr:
+                with codecs.open(self._input, "r", "cp932") as fr:
                     data :str = fr.read()
             except:
                 try:
-                    with codecs.open(input, r, "utf-8") as fr:
+                    with codecs.open(self._input, "r", "utf-8") as fr:
                         data :str = fr.read().replace("\ufeff","")
                 except UnicodeDecodeError as e:
-                    e.reason = "RECLIST ERROR:" + input + "の文字コードが次のどちらでもないため、読み込みに失敗しました。cp932,utf-8"
+                    e.reason = "RECLIST ERROR:" + self._input + "の文字コードが次のどちらでもないため、読み込みに失敗しました。cp932,utf-8"
                     raise e
             self._reclist = data.replace("\r","").split("\n")
 

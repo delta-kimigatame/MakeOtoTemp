@@ -1,0 +1,12 @@
+8440	„@	„A	„B	„C	„D	„E	„F	„G	„H	„I	„J	„K	„L	„M	„N	„O
+8450	„P	„Q	„R	„S	„T	„U	„V	„W	„X	„Y	„Z	„[	„\	„]	„^	„_
+8460	„`	„a	„b	„c	„d	„e	„f	„g	„h	„i	„j	„k	„l	„m	„n	„o
+8470	„p	„q	„r	„s	„t	„u	„v	„w	„x	„y	„z	„{	„|	„}	„~	
+8480	„€	„	„‚	„ƒ	„„	„…	„†	„‡	„ˆ	„‰	„Š	„‹	„Œ	„	„Ž	„
+8490	„	„‘	„’	„“	„”	„•	„–	„—	„˜	„™	„š	„›	„œ	„	„ž	„Ÿ
+84A0	„ 	„¡	„¢	„£	„¤	„¥	„¦	„§	„¨	„©	„ª	„«	„¬	„­	„®	„¯
+84B0	„°	„±	„²	„³	„´	„µ	„¶	„·	„¸	„¹	„º	„»	„¼	„½	„¾	„¿
+84C0	„À	„Á	„Â	„Ã	„Ä	„Å	„Æ	„Ç	„È	„É	„Ê	„Ë	„Ì	„Í	„Î	„Ï
+84D0	„Ð	„Ñ	„Ò	„Ó	„Ô	„Õ	„Ö	„×	„Ø	„Ù	„Ú	„Û	„Ü	„Ý	„Þ	„ß
+84E0	„à	„á	„â	„ã	„ä	„å	„æ	„ç	„è	„é	„ê	„ë	„ì	„í	„î	„ï
+84F0	„ð	„ñ	„ò	„ó	„ô	„õ	„ö	„÷	„ø	„ù	„ú	„û	„ü	„ý	„þ
