@@ -192,7 +192,7 @@ class MakeOtoTemp:
                 begin, end, offset, prev_vowel= self._GetRange(record, begin, offset, length, prev_vowel)
                 if begin >= len(record):
                     break
-                cv = record[vowel:end]
+                cv = record[begin:end]
                 if self.preset.consonant[cv] == "":#連続音
                     self._MakeOtoParamVCV(offset, pre, ove, consonant, blank, record, prev_vowel, cv)
                 elif self.preset.consonant[cv] == "-":#onset-consonant-cluster
@@ -253,12 +253,12 @@ class MakeOtoTemp:
         alias :str
             エイリアス
         '''
-        if self.preset.novcv:
-            pass
-        elif prev_vowel == "-" and self.preset.nohead:
+        if prev_vowel == "-" and self.preset.nohead:
             pass
         elif prev_vowel == "-" and not self.preset.begining_cv:
             self._oto.append(Oto.Oto(record+".wav", self._ReplaceAlias(alias), offset, pre, ove, consonant, blank))
+        elif self.preset.novcv:
+            pass
         else:
             self._oto.append(Oto.Oto(record+".wav", self._ReplaceAlias(prev_vowel + " " + alias), offset, pre, ove, consonant, blank))
             
@@ -326,7 +326,7 @@ class MakeOtoTemp:
                 parse = parse + 1
             else:#C1の子音を特定
                 break
-            self._oto.append(Oto.Oto(record+".wav", self._ReplaceAlias(record[begin:end-parse] + " " + record[end-parse:end]), offset, pre, ove, consonant, blank))
+        self._oto.append(Oto.Oto(record+".wav", self._ReplaceAlias(record[begin:end-parse] + " " + record[end-parse:end]), offset, pre, ove, consonant, blank))
 
     def _MakeOtoParamHeadCV(self, offset :float, pre :float, blank :float, record :str, alias :str):
         '''
@@ -358,6 +358,7 @@ class MakeOtoTemp:
                                         consonant_time * 1.5, 
                                         blank + consonant_time))
         else:
+            consonant_time = self.preset.consonant_time[self.preset.consonant[alias]]
             self._oto.append(Oto.Oto(record+".wav", 
                                         self._ReplaceAlias("- " + alias), 
                                         offset + pre - consonant_time, 
@@ -393,7 +394,7 @@ class MakeOtoTemp:
         consonant_time = self.preset.consonant_time[self.preset.consonant[alias]]
         #VC
         self._oto.append(Oto.Oto(record+".wav", 
-                                    self._ReplaceAlias(prev + " " + self.preset.consonant[alias]), 
+                                    self._ReplaceAlias(prev_vowel + " " + self.preset.consonant[alias]), 
                                     offset - consonant_time, 
                                     pre, 
                                     ove, 
@@ -414,7 +415,7 @@ class MakeOtoTemp:
         if self.preset.only_consonant:
             self._oto.append(Oto.Oto(record+".wav", 
                                         self._ReplaceAlias(self.preset.consonant[alias]), 
-                                        offset - consonant_time, 
+                                        offset + pre - consonant_time, 
                                         consonant_time * 0.3, 
                                         consonant_time * 0.1, 
                                         consonant_time/2, 
@@ -543,6 +544,6 @@ class MakeOtoTemp:
         alias :str
             変換後のエリアス
         '''
-        for replace_pattern in range(self.preset.replace):
+        for replace_pattern in self.preset.replace:
             alias = alias.replace(replace_pattern[1], replace_pattern[0])
         return alias

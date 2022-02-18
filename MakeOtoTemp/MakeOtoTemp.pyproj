@@ -80,6 +80,7 @@
     <Content Include="tests\data\dummyvb\samplevb1\_いいうあえいえ.wav" />
     <Content Include="tests\data\dummyvb\samplevb1\_ああいあうえあ.wav" />
     <Content Include="tests\data\preset\cp932.ini" />
+    <Content Include="tests\data\preset\delta_eng_g05.ini" />
     <Content Include="tests\data\preset\error_replace.ini" />
     <Content Include="tests\data\preset\error_nohead.ini" />
     <Content Include="tests\data\preset\error_consonant.ini" />
