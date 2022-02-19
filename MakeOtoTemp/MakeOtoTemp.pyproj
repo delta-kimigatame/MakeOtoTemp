@@ -31,6 +31,9 @@
     <Compile Include="Preset.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="release.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="settings.py">
       <SubType>Code</SubType>
     </Compile>
