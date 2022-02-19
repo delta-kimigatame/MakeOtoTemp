@@ -366,3 +366,4 @@ FodyWeavers.xsd
 /MakeOtoTemp/mkototemp.ini
 /MakeOtoTemp/oto.ini
 /MakeOtoTemp/docs/_build/.doctrees
+/MakeOtoTemp/error-log.txt

@@ -71,6 +71,41 @@
              
   <section id="module-MakeOtoTemp">
 <span id="makeototemp-module"></span><h1>MakeOtoTemp module<a class="headerlink" href="#module-MakeOtoTemp" title="このヘッドラインへのパーマリンク"></a></h1>
+<div class="line-block">
+<div class="line">MakeOtoTemp</div>
+<div class="line">プリセットファイルに基づいて原音設定のテンプレートを作成します。</div>
+<div class="line">プリセットファイルが存在しない場合、デフォルトのプリセットファイルが生成されます。</div>
+</div>
+<p class="rubric">サンプル</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">MakeOtoTemp</span> <span class="n">input_path</span> <span class="p">[</span><span class="o">--</span><span class="n">preset</span> <span class="n">preset_path</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">oto</span> <span class="n">oto_path</span><span class="p">]</span>
+</pre></div>
+</div>
+<dl class="field-list">
+<dt class="field-odd">param input_path</dt>
+<dd class="field-odd"><p>以下のいずれかのパス</p>
+<ul class="simple">
+<li><p>cp932でエンコードされたテキストファイル</p></li>
+<li><p>utf-8でエンコードされたテキストファイル</p></li>
+<li><p>wavファイルを含むディレクトリ</p></li>
+</ul>
+<p>テキストファイルの場合、1行を1ファイル名として読み込みます。</p>
+</dd>
+<dt class="field-even">type input_path</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+<dt class="field-odd">param preset_path</dt>
+<dd class="field-odd"><p>使用するプリセットファイルのパス</p>
+</dd>
+<dt class="field-even">type preset_path</dt>
+<dd class="field-even"><p>str, default &quot;mkototemp.ini&quot;</p>
+</dd>
+<dt class="field-odd">param oto_path</dt>
+<dd class="field-odd"><p>出力される原音設定ファイルのパス</p>
+</dd>
+<dt class="field-even">type oto_path</dt>
+<dd class="field-even"><p>str, default &quot;oto.ini&quot;</p>
+</dd>
+</dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="MakeOtoTemp.MakeOtoTemp">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">MakeOtoTemp.</span></span><span class="sig-name descname"><span class="pre">MakeOtoTemp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preset_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'mkototemp.ini'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MakeOtoTemp.MakeOtoTemp" title="この定義へのパーマリンク"></a></dt>

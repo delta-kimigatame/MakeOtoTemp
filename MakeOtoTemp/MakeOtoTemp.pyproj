@@ -57,8 +57,6 @@
     </Interpreter>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="docs\" />
-    <Folder Include="docs\_static\" />
     <Folder Include="docsource\" />
     <Folder Include="tests\" />
     <Folder Include="tests\data\" />

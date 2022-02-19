@@ -1,9 +1,40 @@
-﻿import os
-import os.path
+﻿'''
+| MakeOtoTemp
+| プリセットファイルに基づいて原音設定のテンプレートを作成します。
+| プリセットファイルが存在しない場合、デフォルトのプリセットファイルが生成されます。
+
+Examples
+--------
+>>> MakeOtoTemp input_path [--preset preset_path] [--oto oto_path]
+
+Parameters
+----------
+input_path :str
+    以下のいずれかのパス
+
+    * cp932でエンコードされたテキストファイル
+    * utf-8でエンコードされたテキストファイル
+    * wavファイルを含むディレクトリ
+
+    テキストファイルの場合、1行を1ファイル名として読み込みます。
+
+preset_path :str, default "mkototemp.ini"
+    使用するプリセットファイルのパス
+
+oto_path :str, default "oto.ini"
+    出力される原音設定ファイルのパス
+'''
+
 import sys
+import os
+import os.path
+import argparse
+import logging
 import codecs
 import mimetypes
 from typing import Tuple
+
+sys.path.append(os.path.dirname(__file__)) #embeddable pythonにimpot用のパスを追加
 
 import Oto
 import Preset
@@ -556,3 +587,21 @@ class MakeOtoTemp:
         for replace_pattern in self.preset.replace:
             alias = alias.replace(replace_pattern[1], replace_pattern[0])
         return alias
+
+if __name__=="__main__":
+    parser = argparse.ArgumentParser(description="録音リストもしくはwavファイルを含むフォルダに基づいて、原音設定テンプレートを生成します。")
+    parser.add_argument("input_path", type=str, help="録音リストもしくはwavファイルを含むフォルダのパス。録音リストはcp932もしくはutf-8で記述されたtxtファイルでなければいけません")
+    parser.add_argument("-p", "--preset", type=str, default="mkototemp.ini",
+                        help="presetファイルのパス。指定しなければ、同一ディレクトリ内のmkototemp.iniを使用します。存在しないファイルを指定した場合、標準のプリセットファイルを作成します。")
+    parser.add_argument("-o", "--oto", type=str, default="oto.ini",
+                        help="出力する原音設定ファイルのパス。指定しなければ、同一ディレクトリ内にoto.iniを生成します。既に存在するファイルの場合、無警告で上書きされます。")
+    args = parser.parse_args()
+    logging.basicConfig(filename='error-log.txt', encoding="utf-8", level=logging.ERROR, format='%(asctime)s:%(message)s')
+    try:
+        makeOtoTemp=MakeOtoTemp(args.input_path, args.preset)
+        makeOtoTemp.MakeOtoParam()
+        makeOtoTemp.WriteOto(args.oto)
+    except Exception as e:
+        for log in e.args:
+            print(log)
+            logging.error(log)
