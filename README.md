@@ -1,5 +1,7 @@
 # MakeOtoTemp(原音設定テンプレ吐き出す君)
 
+ダウンロードはこちら(https://github.com/delta-kimigatame/MakeOtoTemp/releases)
+
 ### これは何?
 
 * 飴屋／菖蒲氏によって公開されている、Windows向けに作成された歌声合成ソフトウェア「UTAU」の、
