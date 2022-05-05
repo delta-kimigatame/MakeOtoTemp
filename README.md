@@ -13,7 +13,7 @@
 * このソフトは、2015年3月ごろのUTAU界隈の動向に合わせて作成したものを、オープンソースで作り直したものです。
 * 使用するには「.NET 6.0 ランタイム」が必要です。必要に応じて下記urlからインストールしてください。
 
-    UTAU公式サイト(https://dotnet.microsoft.com/ja-jp/download/dotnet/6.0/runtime?cid=getdotnetcore)
+    「.NET 6.0 ランタイム」(https://dotnet.microsoft.com/ja-jp/download/dotnet/6.0/runtime?cid=getdotnetcore)
 
 ---
 
