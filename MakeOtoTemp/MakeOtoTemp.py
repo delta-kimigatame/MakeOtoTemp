@@ -39,6 +39,8 @@ sys.path.append(os.path.dirname(__file__)) #embeddable pythonにimpot用のパ�
 import Oto
 import Preset
 
+BASE_DIR: str = os.path.dirname(os.path.abspath(__file__))
+
 class MakeOtoTemp:
     '''
     プリセットファイルに基づいて原音設定のテンプレートを作成します。
@@ -136,6 +138,7 @@ class MakeOtoTemp:
         self._input = input
         self._GetRecList()
         self._preset = Preset.Preset(preset_path)
+        logging.debug("preset loaded")
         self._oto = []
     
 
@@ -154,10 +157,12 @@ class MakeOtoTemp:
             inputファイルの文字コードがcp932かutf-8以外だったとき
         '''
         if os.path.isdir(self._input):
+            logging.debug("dir input")
             files :list = os.listdir(self._input)
             filter_files :list = list(filter(lambda file: file.endswith(".wav"), files))
             self._reclist = list(map(lambda file: file.replace(".wav",""), filter_files))
         else:
+            logging.debug("text input")
             if mimetypes.guess_type(self._input)[0] != "text/plain":
                 raise TypeError("RECLIST ERROR:" + self._input + "はテキストファイルでもフォルダでもないため、開けませんでした")
             try:
@@ -171,6 +176,9 @@ class MakeOtoTemp:
                     e.reason = "RECLIST ERROR:" + self._input + "の文字コードが次のどちらでもないため、読み込みに失敗しました。cp932,utf-8"
                     raise e
             self._reclist = data.replace("\r","").split("\n")
+        for record in self._reclist:
+            logging.debug("input_record:"+record)
+        
 
     def MakeOtoParam(self):
         '''
@@ -208,6 +216,7 @@ class MakeOtoTemp:
         cv :str
         consonant_time :float
         for record in self._reclist:
+            logging.debug("target record:"+record)
             offset = self.preset.offset - pre
             prev_vowel = "-"
             if record[0] == "_":
@@ -224,16 +233,23 @@ class MakeOtoTemp:
                 if begin >= len(record):
                     break
                 cv = record[begin:end]
+                logging.debug("target cv:"+cv)
+                logging.debug("target cv index:"+str(begin))
                 if self.preset.consonant[cv] == "":#連続音
                     self._MakeOtoParamVCV(offset, pre, ove, consonant, blank, record, prev_vowel, cv)
+                    logging.debug("make_vcv")
                 elif self.preset.consonant[cv] == "-":#onset-consonant-cluster
                     self._MakeOtoParamOnsetConsonantCluster(offset, pre, ove, consonant, blank, record, prev_vowel, cv)
+                    logging.debug("make_-cc")
                 elif self.preset.consonant[cv] == "*":#coda-consonant-cluster
                     self._MakeOtoParamCodaConsonantCluster(offset, pre, ove, consonant, blank, record, begin, end)
+                    logging.debug("make_cc-")
                 elif prev_vowel == "-":#CVのみ
                     self._MakeOtoParamHeadCV(offset, pre, blank, record, cv)
+                    logging.debug("make_cv")
                 else:#CVVC
                     self._MakeOtoParamCVVC(offset, pre, ove, consonant, blank, record, prev_vowel, cv)
+                    logging.debug("make_cvvc")
             
                 prev_vowel = self._SetVowel(cv)
                 offset = offset + length
@@ -260,12 +276,14 @@ class MakeOtoTemp:
             if oto.alias not in writed:
                 writed[oto.alias] = 1
                 lines.append(str(oto))
+                logging.debug("write:"+str(oto))
             elif writed[oto.alias] >= self.preset.max:
                 continue
             else:
                 writed[oto.alias] = writed[oto.alias] + 1
                 oto.alias = oto.alias + str(writed[oto.alias])
                 lines.append(str(oto))
+                logging.debug("write:"+str(oto))
         with codecs.open(otopath, "w", "cp932") as fw:
             fw.write("\r\n".join(lines))
 
@@ -561,13 +579,13 @@ class MakeOtoTemp:
             if end <= begin:
                 end = len(record)
                 begin = begin + 1
+                if begin >= len(record):
+                    break
                 begin, offset, prev_vowel, is_underbar = self._CheckUnderBar(record, begin, offset, length, prev_vowel)
                 while is_underbar:
                     if begin >= len(record):
                         break
                     begin, offset, prev_vowel, is_underbar = self._CheckUnderBar(record, begin, offset, length, prev_vowel)
-                if begin >= len(record):
-                    break
         return begin, end, offset, prev_vowel
 
     def _ReplaceAlias(self, alias :str) -> str:
@@ -591,12 +609,21 @@ class MakeOtoTemp:
 if __name__=="__main__":
     parser = argparse.ArgumentParser(description="録音リストもしくはwavファイルを含むフォルダに基づいて、原音設定テンプレートを生成します。")
     parser.add_argument("input_path", type=str, help="録音リストもしくはwavファイルを含むフォルダのパス。録音リストはcp932もしくはutf-8で記述されたtxtファイルでなければいけません")
-    parser.add_argument("-p", "--preset", type=str, default="mkototemp.ini",
+    parser.add_argument("-p", "--preset", type=str, default=os.path.join(os.path.split(BASE_DIR)[0],"mkototemp.ini"),
                         help="presetファイルのパス。指定しなければ、同一ディレクトリ内のmkototemp.iniを使用します。存在しないファイルを指定した場合、標準のプリセットファイルを作成します。")
-    parser.add_argument("-o", "--oto", type=str, default="oto.ini",
+    parser.add_argument("-o", "--oto", type=str, default=os.path.join(os.path.split(BASE_DIR)[0],"oto.ini"),
                         help="出力する原音設定ファイルのパス。指定しなければ、同一ディレクトリ内にoto.iniを生成します。既に存在するファイルの場合、無警告で上書きされます。")
     args = parser.parse_args()
-    logging.basicConfig(filename='error-log.txt', encoding="utf-8", level=logging.ERROR, format='%(asctime)s:%(message)s')
+    logging.basicConfig(filename=os.path.join(BASE_DIR,"..",'error-log.txt'), encoding="utf-8", level=logging.ERROR, format='%(asctime)s:%(message)s')
+    #logging.basicConfig(filename=os.path.join(BASE_DIR,"..",'debug-log.txt'), encoding="utf-8", level=logging.DEBUG, format='%(asctime)s:%(message)s')
+    logging.debug("base_dir:"+BASE_DIR)
+    logging.debug("input_path:"+args.input_path)
+    logging.debug("preset:"+args.preset)
+    logging.debug("oto:"+args.oto)
+    #makeOtoTemp=MakeOtoTemp(args.input_path, args.preset)
+    #makeOtoTemp.MakeOtoParam()
+    #makeOtoTemp.WriteOto(args.oto)
+    print(BASE_DIR)
     try:
         makeOtoTemp=MakeOtoTemp(args.input_path, args.preset)
         makeOtoTemp.MakeOtoParam()
